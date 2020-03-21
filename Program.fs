@@ -2,7 +2,9 @@
 open System
 
 let checkIfContainsTodo (line : string, fileInfo : FileInfo) =
-    if (line.ToLower().Contains("todo")) then printfn "In %s: %s" fileInfo.Name line
+    let trimedLine = line.Trim()
+    if (trimedLine.ToLower().Contains("//todo") || trimedLine.ToLower().Contains("// todo")) then
+        printfn "In %s: %s" fileInfo.Name trimedLine
 
 let printFileIntfo (fileInfo : FileInfo) =
     use file = File.OpenText(fileInfo.FullName)
