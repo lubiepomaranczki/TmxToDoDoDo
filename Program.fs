@@ -4,10 +4,12 @@ open AzureDevOpsCLI
 open System.IO
 
 let addTaskToDevOps (line : string, fileInfo : FileInfo) =
+    let body = getRequestBodyForAddTask (line, fileInfo)
+
     let response =
         postDocRaw
-            ("https://dev.azure.com/niobo/AzureDevOpsCITutorial/_apis/wit/workitems/$user%20story?api-version=5.1",
-             "[{\r\n    \"op\": \"add\",\r\n    \"path\": \"\/fields\/System.Title\",\r\n    \"from\": null,\r\n    \"value\": \"Sample task\"\r\n  }]")
+            ("https://dev.azure.com/niobo/AzureDevOpsCITutorial/_apis/wit/workitems/$user%20story?api-version=5.1", body)
+
     printfn "Sialala"
 
 let checkIfContainsTodo (line : string, fileInfo : FileInfo) =
